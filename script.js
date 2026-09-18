@@ -160,6 +160,9 @@ function createBurst(x, y, count = 32) {
 }
 
 card.addEventListener('click', (e) => {
+  // If clicked directly on the button, let the button handler handle it
+  if (e.target.closest('#next-btn')) return;
+
   createBurst(e.clientX, e.clientY, 40);
   
   // Subtle bounce on click
@@ -174,3 +177,79 @@ window.addEventListener('click', (e) => {
     createBurst(e.clientX, e.clientY, 18);
   }
 });
+
+// Motivational Quotes & Next Sentence Handler
+const quotes = [
+  {
+    title: "오늘도 힘내세요!",
+    subtitle: "모든 위대한 여정은 작은 생각의 불꽃에서 시작됩니다.",
+    badge: "DAILY INSPIRATION"
+  },
+  {
+    title: "당신은 빛나는 사람",
+    subtitle: "어둠 속에서도 길을 잃지 않는 별처럼, 스스로를 믿으세요.",
+    badge: "SELF BELIEF"
+  },
+  {
+    title: "작은 한 걸음의 힘",
+    subtitle: "천 리 길도 한 걸음부터! 오늘 실천한 작은 일이 내일을 바꿉니다.",
+    badge: "SMALL STEPS"
+  },
+  {
+    title: "포기하지 마세요",
+    subtitle: "가장 어두운 밤이 지나면, 반드시 눈부신 아침 햇살이 찾아옵니다.",
+    badge: "HOPE & COURAGE"
+  },
+  {
+    title: "새로운 시작의 날",
+    subtitle: "어제의 아쉬움은 털어내고, 오늘을 설렘과 열정으로 채워보세요.",
+    badge: "FRESH START"
+  },
+  {
+    title: "스스로를 칭찬하기",
+    subtitle: "여기까지 걸어온 것만으로도 당신은 이미 충분히 훌륭합니다.",
+    badge: "YOU ARE AMAZING"
+  }
+];
+
+let currentQuoteIndex = 0;
+const titleElement = document.getElementById('idea-title');
+const subtitleElement = document.getElementById('idea-subtitle');
+const badgeTextElement = document.querySelector('#idea-badge span:last-child');
+const nextBtn = document.getElementById('next-btn');
+
+function changeQuote(e) {
+  if (e) {
+    e.stopPropagation();
+    createBurst(e.clientX, e.clientY, 35);
+  }
+
+  currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+  const nextQuote = quotes[currentQuoteIndex];
+
+  // Smooth fade transition
+  titleElement.style.opacity = '0';
+  titleElement.style.transform = 'translateY(-8px)';
+  titleElement.style.transition = 'opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+  
+  subtitleElement.style.opacity = '0';
+  subtitleElement.style.transform = 'translateY(8px)';
+  subtitleElement.style.transition = 'opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+
+  setTimeout(() => {
+    titleElement.innerHTML = `<span class="gradient-text">${nextQuote.title}</span>`;
+    subtitleElement.textContent = nextQuote.subtitle;
+    if (badgeTextElement) {
+      badgeTextElement.textContent = nextQuote.badge;
+    }
+
+    titleElement.style.opacity = '1';
+    titleElement.style.transform = 'translateY(0)';
+    subtitleElement.style.opacity = '1';
+    subtitleElement.style.transform = 'translateY(0)';
+  }, 220);
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener('click', changeQuote);
+}
