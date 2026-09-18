@@ -53,9 +53,9 @@ class Particle {
   }
 }
 
-// Spark / Burst Particle Class (Blue sparks triggered on click)
+// Spark / Burst Particle Class
 class BurstParticle {
-  constructor(x, y) {
+  constructor(x, y, customColors = null) {
     this.x = x;
     this.y = y;
     this.size = Math.random() * 4.5 + 2;
@@ -65,13 +65,14 @@ class BurstParticle {
     this.speedY = Math.sin(angle) * speed;
     this.opacity = 1;
     this.decay = Math.random() * 0.02 + 0.015;
-    const colors = [
+    const defaultColors = [
       'rgba(56, 189, 248,',  // bright cyan
       'rgba(37, 99, 235,',   // royal electric blue
       'rgba(2, 132, 199,',   // ocean blue
       'rgba(147, 197, 253,', // light baby blue
       'rgba(255, 255, 255,'  // white spark
     ];
+    const colors = customColors || defaultColors;
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
 
@@ -153,9 +154,9 @@ window.addEventListener('mousemove', handleMouseMove);
 card.addEventListener('mouseleave', handleMouseLeave);
 
 // Click Burst Effect
-function createBurst(x, y, count = 32) {
+function createBurst(x, y, count = 32, customColors = null) {
   for (let i = 0; i < count; i++) {
-    burstParticles.push(new BurstParticle(x, y));
+    burstParticles.push(new BurstParticle(x, y, customColors));
   }
 }
 
@@ -178,7 +179,57 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Motivational Quotes & Next Sentence Handler
+// Button Color Themes (순서: 파란색 -> 노란색 -> 주황색 -> 초록색)
+const buttonColorThemes = [
+  {
+    className: 'btn-blue',
+    name: '파란색',
+    sparks: [
+      'rgba(56, 189, 248,',
+      'rgba(37, 99, 235,',
+      'rgba(2, 132, 199,',
+      'rgba(147, 197, 253,',
+      'rgba(255, 255, 255,'
+    ]
+  },
+  {
+    className: 'btn-yellow',
+    name: '노란색',
+    sparks: [
+      'rgba(250, 204, 21,',
+      'rgba(234, 179, 8,',
+      'rgba(253, 224, 71,',
+      'rgba(254, 240, 138,',
+      'rgba(255, 255, 255,'
+    ]
+  },
+  {
+    className: 'btn-orange',
+    name: '주황색',
+    sparks: [
+      'rgba(249, 115, 22,',
+      'rgba(234, 88, 12,',
+      'rgba(251, 146, 60,',
+      'rgba(254, 215, 170,',
+      'rgba(255, 255, 255,'
+    ]
+  },
+  {
+    className: 'btn-green',
+    name: '초록색',
+    sparks: [
+      'rgba(34, 197, 94,',
+      'rgba(22, 163, 74,',
+      'rgba(74, 222, 128,',
+      'rgba(187, 247, 208,',
+      'rgba(255, 255, 255,'
+    ]
+  }
+];
+
+let currentColorIndex = 0; // Starts at 0 (btn-blue)
+
+// Motivational Quotes List
 const quotes = [
   {
     title: "오늘도 힘내세요!",
@@ -219,9 +270,18 @@ const badgeTextElement = document.querySelector('#idea-badge span:last-child');
 const nextBtn = document.getElementById('next-btn');
 
 function changeQuote(e) {
+  // Update button color to the next in sequence: Blue -> Yellow -> Orange -> Green
+  currentColorIndex = (currentColorIndex + 1) % buttonColorThemes.length;
+  const currentTheme = buttonColorThemes[currentColorIndex];
+
+  if (nextBtn) {
+    nextBtn.className = `next-btn ${currentTheme.className}`;
+  }
+
+  // Trigger burst sparks matching the new button color
   if (e) {
     e.stopPropagation();
-    createBurst(e.clientX, e.clientY, 35);
+    createBurst(e.clientX, e.clientY, 36, currentTheme.sparks);
   }
 
   currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
@@ -253,3 +313,4 @@ function changeQuote(e) {
 if (nextBtn) {
   nextBtn.addEventListener('click', changeQuote);
 }
+
