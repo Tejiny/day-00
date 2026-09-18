@@ -23,33 +23,119 @@
   <!-- Interactive canvas for floating particles -->
   <canvas id="particle-canvas"></canvas>
 
-  <main class="container" id="main-container">
-    <div class="card" id="idea-card">
-      <div class="badge" id="idea-badge">
-        <span class="badge-dot"></span>
-        <span>FIRST INSPIRATION</span>
-      </div>
-
-      <h1 class="title" id="idea-title">
-        <span class="gradient-text">오늘도 힘내세요!</span>
-      </h1>
-
-      <p class="subtitle" id="idea-subtitle">
-        모든 위대한 여정은 작은 생각의 불꽃에서 시작됩니다.
-      </p>
-
-      <button class="next-btn btn-blue" id="next-btn" type="button">
-        <span class="btn-text">다음 문장 보기</span>
-        <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
-
-      <div class="interaction-hint">
-        <span>카드를 클릭하거나 마우스를 움직여보세요</span>
-      </div>
+  <!-- 1. Header Area -->
+  <header class="app-header" id="app-header">
+    <div class="header-content">
+      <h1 class="header-title"><svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          width="20" height="20" fill="currentColor">
+          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg> 헤더, 나의 첫 서비스</h1>
+      <nav class="header-nav" aria-label="메인 내비게이션">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#about" class="nav-link">소개</a></li>
+          <li class="nav-item"><a href="#features" class="nav-link">기능</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">문의</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
+
+  <!-- 2. Main (Body) Area -->
+  <main class="main-content" id="main-content">
+
+    <!-- 섹션 1: 핵심 기능 소개 -->
+    <section class="section feature-section" id="features">
+      <div class="section-header">
+        <span class="section-badge">CORE FEATURE</span>
+        <h2 class="section-title">핵심 기능 소개</h2>
+        <p class="section-desc">버튼 하나로 일상에 활력을 불어넣는 영감과 따뜻한 응원을 만나보세요.</p>
+      </div>
+
+      <div class="card" id="idea-card">
+        <div class="badge" id="idea-badge">
+          <span class="badge-dot"></span>
+          <span>FIRST INSPIRATION</span>
+        </div>
+
+        <h3 class="title" id="idea-title">
+          <span class="gradient-text">오늘도 힘내세요!</span>
+        </h3>
+
+        <p class="subtitle" id="idea-subtitle">
+          모든 위대한 여정은 작은 생각의 불꽃에서 시작됩니다.
+        </p>
+
+        <button class="next-btn btn-blue" id="next-btn" type="button">
+          <span class="btn-text">다음 문장 보기</span>
+          <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="interaction-hint">
+          <span>카드를 클릭하거나 마우스를 움직여보세요</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 2: 사용자 후기 -->
+    <section class="section reviews-section" id="reviews">
+      <div class="section-header">
+        <span class="section-badge">USER REVIEWS</span>
+        <h2 class="section-title">사용자 후기</h2>
+        <p class="section-desc">서비스를 먼저 경험한 사용자분들의 솔직하고 따뜻한 이야기입니다.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- 후기 1 -->
+        <article class="review-card">
+          <div class="review-user">
+            <img src="images/user1.jpg" alt="김민지 님 프로필" class="user-avatar" loading="lazy" />
+            <div class="user-info">
+              <h4 class="user-name">김민지</h4>
+              <p class="user-role">스타트업 서비스 기획자</p>
+            </div>
+            <div class="review-stars" aria-label="5점 만점">★★★★★</div>
+          </div>
+          <p class="review-text">
+            “매일 아침 출근길에 가볍게 열어보고 있어요. 짧지만 깊은 울림을 주는 문장들과 누를 때마다 색상이 변하는 시각 효과 덕분에 하루를 긍정적인 에너지로 활기차게 시작할 수 있습니다!”
+          </p>
+          <div class="review-footer">
+            <span class="review-tag">#동기부여</span>
+            <span class="review-date">2026.09.15</span>
+          </div>
+        </article>
+
+        <!-- 후기 2 -->
+        <article class="review-card">
+          <div class="review-user">
+            <img src="images/user2.jpg" alt="이준혁 님 프로필" class="user-avatar" loading="lazy" />
+            <div class="user-info">
+              <h4 class="user-name">이준혁</h4>
+              <p class="user-role">프론트엔드 개발자</p>
+            </div>
+            <div class="review-stars" aria-label="5점 만점">★★★★★</div>
+          </div>
+          <p class="review-text">
+            “감각적인 3D 카드 틸트와 불꽃처럼 터지는 파티클 인터랙션이 너무 매력적이에요. 작업 중 리프레시가 필요할 때마다 문장을 넘겨보며 새로운 인사이트를 얻고 있습니다.”
+          </p>
+          <div class="review-footer">
+            <span class="review-tag">#디자인만족</span>
+            <span class="review-date">2026.09.17</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
   </main>
+
+  <!-- 3. Footer Area -->
+  <footer class="app-footer" id="app-footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2026 mY service</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
